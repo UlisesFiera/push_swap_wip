@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_lib.h                                         :+:      :+:    :+:   */
+/*   dup_int.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 10:10:20 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/17 17:51:11 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/01/17 17:01:47 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/01/17 17:02:24 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_LIB_H
-# define PUSH_LIB_H
+#include "push_lib.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+int	dup_int(int	*array, int argc)
+{
+	int	num;
+	int	dup;
+	int	i;
+	int	j;
 
-# include "libft/libft.h"
-
-int	dup_int(int	*array, int argc);
-void	populate_stack_one(t_list **stack_one, int *stack_array, int argc);
-
-#endif
+	i = 0;
+	dup = 0;
+	while (i < argc - 1)
+	{
+		num = array[i];
+		j = 0;
+		while (j < argc - 1)
+		{
+			if (array[j] == num)
+				dup++;
+			j++;
+		}
+		if (dup >= 2)
+			return (1);	
+		dup = 0;
+		i++;
+	}
+	return (0);
+}

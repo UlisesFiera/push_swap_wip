@@ -6,19 +6,39 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:15 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/17 11:01:50 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:50:44 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-int	atoi_plus(char *argv)
+void	free_all(t_list **stack_one, t_list **stack_two, int **stack_array)
+{
+	if (*stack_one)
+	{
+		free(*stack_one);
+		*stack_one = NULL;
+	}
+	if (*stack_two)
+	{
+		free(*stack_two);
+		*stack_two = NULL;
+	}
+	if (*stack_array)
+	{
+		free(*stack_array);
+		*stack_array = NULL;
+	}
+}
+
+int	atoi_plus(char *argv, int *array)
 {
 	long long 	num;
 	int			is_negative;
 	int			i;
 
-	negative = 0;
+	is_negative = 0;
+	num = 0;
 	i = 0;
 	if (argv[i] == '-')
 	{
@@ -28,12 +48,16 @@ int	atoi_plus(char *argv)
 	while (argv[i])
 	{
 		if (!ft_isdigit(argv[i]))
-		{
-			ft_printf("Error\n");
 			return (1);
-		}
+		num = num * 10 + (argv[i] - '0');
 		i++;
 	}
+	if (is_negative)
+		num = -num;
+	if (num > 2147483647 || num < -2147483648)
+		return (1);
+	*array = num;
+	return (0);
 }
 
 int	stack_alloc(t_list **stack_one, t_list **stack_two)
@@ -44,41 +68,39 @@ int	stack_alloc(t_list **stack_one, t_list **stack_two)
 		ft_printf("Error\n");
 		return (1);
 	}
-	*stack_two = ft_calloc(sizeof(t_list));
+	*stack_two = ft_calloc(1, sizeof(t_list));
 	if (!*stack_two)
 	{
+		free(*stack_one);
 		ft_printf("Error\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	error_check(int argc, char **argv)
-{
-	if (argc < 3)
-		return (1);
-}
-
 int	char_to_int(char **argv, int **stack_array, int argc)
 {
 	// turn each command into an int and store it into the array
 	int		i;
-	int		j;
 	int		*array;
 
 	array = malloc(sizeof(int) * (argc - 1));
 	if (!array)
-	{
-		ft_printf("Error\n");
-		return (1);
-	}
-	if (error_check(argc, argv))
 		return (1);
 	i = 0;
 	while (i < argc - 1)
 	{
-		array[i] = atoi_plus(argv[i + 1]); 
+		if (atoi_plus(argv[i + 1], &array[i]))
+		{
+			free(array);
+			return (1);
+		}
 		i++;
+	}
+	if (dup_int(array, argc))
+	{
+		free(array);
+		return (1);
 	}
 	*stack_array = array;
 	return (0);
@@ -86,28 +108,40 @@ int	char_to_int(char **argv, int **stack_array, int argc)
 
 int	main(int argc, char **argv)
 {
+	// turn each digit of the argv string into integers
+	// arg check: error if no random number of integers only (not bigger or smaller), error if duplicate, prompt back if no params
+	// the program must print just the instructions followed by \n
+	// free function needed to free each value
 	t_list 	*stack_one;
 	t_list 	*stack_two;
 	int		*stack_array;
 
+	if (argc < 3)
+		return (1);
 	if (stack_alloc(&stack_one, &stack_two))
 		return (1);
-	// turn each digit of the argv string into integers
-	stack_array = malloc(sizeof(int) * (argc - 1));
-	if (!stack_array)
+	stack_array = NULL;
+	if (char_to_int(argv, &stack_array, argc))
 	{
+		free_all(&stack_one, &stack_two, &stack_array);
 		ft_printf("Error\n");
 		return (1);
 	}
-	if (char_to_int(argv, &stack_array, argc))
-		return (1);
-	// arg check: error if no random number of integers only (not bigger or smaller), error if can't duplicate, prompt back if no params
-	
-	// free function needed to free each value (stack_array & array / )
-	// the program must print just the instructions followed by \n
+	populate_stack_one(&stack_one, stack_array, argc);
+	for (int i = 0; i < argc - 1; i++)
+	{
+        ft_printf("%i ", stack_one->content);
+	}
+	free_all(&stack_one, &stack_two, &stack_array);
+	return (0);
 }
 
-
+/*    for (int i = 0; i < argc - 1; i++)
+	{
+        ft_printf("%d ", stack_array[i]);
+	}
+*/
+	
 /*
 
 	Pointer lesson:

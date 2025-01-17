@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_lib.h                                         :+:      :+:    :+:   */
+/*   populate_stack_one.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 10:10:20 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/17 17:51:11 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/01/17 17:13:51 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/01/17 17:57:23 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_LIB_H
-# define PUSH_LIB_H
+#include "push_lib.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+void	populate_stack_one(t_list **stack_one, int *stack_array, int argc)
+{
+	t_list	*new_node;
+	int		i;
 
-# include "libft/libft.h"
+	i = 0;
+	while (i < argc - 1)
+	{
+		new_node = ft_lstnew(&stack_array[i]);
+		ft_lstadd_back(stack_one, new_node);
+		i++;
+	}
+}
 
-int	dup_int(int	*array, int argc);
-void	populate_stack_one(t_list **stack_one, int *stack_array, int argc);
-
-#endif
+// probar a eliminar el uso de argc y simplemente avanzar el puntero

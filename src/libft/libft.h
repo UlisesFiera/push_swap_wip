@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 16:40:42 by ulfernan          #+#    #+#             */
-/*   Updated: 2024/12/18 17:16:08 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:29:10 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct s_list_line
 	char				*string;
 	struct s_list_line	*next;
 }						t_list_line;
+
+typedef struct s_list_int
+{
+	int					num;
+	struct s_list_int	*next;
+}						t_list_int;
 
 int				ft_atoi(const char *nptr);
 void			ft_bzero(void *s, size_t n);
