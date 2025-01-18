@@ -6,21 +6,44 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:13:51 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/18 16:21:25 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:23:34 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-int	populate_stack_one(t_list **stack_one, int *stack_array, int argc)
+int	allocate_stack_two(t_list *stack_one, t_list **stack_two)
 {
-	t_list	*list;
+	t_list	*new_node;
+	int		size;
+	int		i;
+
+	size = ft_lstsize(stack_one);
+	i = 0;
+	while (i < size)
+	{
+		new_node = calloc(1, sizeof(t_list));
+		if (!new_node)
+		{
+			free_list(stack_one);
+			free_list(*stack_two);
+			return (1);
+		}
+		new_node->content = NULL;
+		ft_lstadd_back(stack_two, new_node);
+		i++;
+	}
+	return (0);
+}
+
+int	populate_stack_one(t_list **stack_one, int *stack_array, int argc, t_list **stack_two)
+{
 	t_list	*new_node;
 	int		*number;
 	int		i;
 
 	i = 0;
-	while (i < argc)
+	while (i < argc - 1)
 	{
 		number = malloc(sizeof(int));
 		if (!number)
@@ -33,11 +56,11 @@ int	populate_stack_one(t_list **stack_one, int *stack_array, int argc)
 			return (1);
 		}
 		new_node->content = number;
-		ft_lstadd_back(&list, new_node);
-		free(number);
+		ft_lstadd_back(stack_one, new_node);
 		i++;
 	}
-	*stack_one = list;
+	if (allocate_stack_two(*stack_one, stack_two))
+		return (1);
 	return (0);
 }
 

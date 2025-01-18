@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:15 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/18 16:01:54 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:19:36 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	free_all(t_list **stack_one, t_list **stack_two, int **stack_array)
 {
 	if (*stack_one)
 	{
-		free(*stack_one);
+		free_list(*stack_one);
 		*stack_one = NULL;
 	}
 	if (*stack_two)
 	{
-		free(*stack_two);
+		free_list(*stack_two);
 		*stack_two = NULL;
 	}
 	if (*stack_array)
@@ -106,6 +106,18 @@ int	char_to_int(char **argv, int **stack_array, int argc)
 	return (0);
 }
 
+void	print_stack(t_list *stack_one)
+{
+	t_list	*current;
+
+	current = stack_one;
+	while (current != NULL)
+	{
+		ft_printf("%d\n", *(int *)(current->content));
+		current = current->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	// turn each digit of the argv string into integers
@@ -127,15 +139,12 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
-	if (populate_stack_one(&stack_one, stack_array, argc))
+	if (populate_stack_one(&stack_one, stack_array, argc, &stack_two))
 	{
 		ft_printf("Error\n");
 		return (1);
 	}
-	for (int i = 0; i < argc - 1; i++)
-	{
-        ft_printf("%i ", stack_one->content);
-	}
+	print_stack(stack_one);
 	free_all(&stack_one, &stack_two, &stack_array);
 	return (0);
 }

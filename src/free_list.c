@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_lib.h                                         :+:      :+:    :+:   */
+/*   free_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 10:10:20 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/18 17:19:19 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/01/18 17:18:59 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/01/18 17:19:06 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_LIB_H
-# define PUSH_LIB_H
+#include "push_lib.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+void	free_list(t_list *stack)
+{
+    t_list	*current;
+    t_list	*next;
 
-# include "libft/libft.h"
-
-int		dup_int(int	*array, int argc);
-int		populate_stack_one(t_list **stack_one, int *stack_array, int argc, t_list **stack_two);
-void	free_list(t_list *stack);
-
-#endif
+    current = stack;
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current->content);
+        free(current);
+        current = next;
+    }
+}

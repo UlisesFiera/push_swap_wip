@@ -8,7 +8,8 @@ STD_FLAGS				= -Wall -Wextra -Werror
 
 SRCS					= src/main.c \
 						  src/dup_int.c \
-						  src/populate_stack_one.c
+						  src/populate_stack_one.c \
+						  src/free_list.c
 
 OBJS					= ${SRCS:.c=.o}
 
