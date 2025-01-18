@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:10:20 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/17 17:51:11 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:02:03 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include "libft/libft.h"
 
-int	dup_int(int	*array, int argc);
-void	populate_stack_one(t_list **stack_one, int *stack_array, int argc);
+int		dup_int(int	*array, int argc);
+int		populate_stack_one(t_list **stack_one, int *stack_array, int argc);
 
 #endif

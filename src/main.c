@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:15 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/17 17:50:44 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:01:54 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,11 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
-	populate_stack_one(&stack_one, stack_array, argc);
+	if (populate_stack_one(&stack_one, stack_array, argc))
+	{
+		ft_printf("Error\n");
+		return (1);
+	}
 	for (int i = 0; i < argc - 1; i++)
 	{
         ft_printf("%i ", stack_one->content);
