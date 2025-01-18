@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:15 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/18 17:19:36 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:01:04 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,23 @@ int	atoi_plus(char *argv, int *array)
 
 int	stack_alloc(t_list **stack_one, t_list **stack_two)
 {
-	*stack_one = ft_calloc(1, sizeof(t_list));
+	*stack_one = malloc(sizeof(t_list));
 	if (!*stack_one)
 	{
 		ft_printf("Error\n");
 		return (1);
 	}
-	*stack_two = ft_calloc(1, sizeof(t_list));
+	(*stack_one)->content = NULL;
+	(*stack_one)->next = NULL;
+	*stack_two = malloc(sizeof(t_list));
 	if (!*stack_two)
 	{
 		free(*stack_one);
 		ft_printf("Error\n");
 		return (1);
 	}
+	(*stack_two)->content = NULL;
+	(*stack_two)->next = NULL;
 	return (0);
 }
 
