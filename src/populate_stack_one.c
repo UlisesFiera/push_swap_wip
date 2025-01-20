@@ -30,10 +30,11 @@ int	allocate_stack_two(t_list *stack_one, t_list **stack_two)
 			return (1);
 		}
 		new_node->content = NULL;
+		new_node->next = NULL;
 		ft_lstadd_back(stack_two, new_node);
 		i++;
 	}
-	ft_printf("one: %i\ntwo: %i\n", ft_lstsize(stack_one), ft_lstsize(*stack_two));
+	//ft_printf("one: %i\ntwo: %i\n", ft_lstsize(stack_one), ft_lstsize(*stack_two));
 	return (0);
 }
 
@@ -44,10 +45,10 @@ int	populate_stack_one(t_list **stack_one, int *stack_array, int argc, t_list **
 	int		i;
 
 	number = malloc(sizeof(int));
-		if (!number)
-			return (1);
+	if (!number)
+		return (1);
 	*number = stack_array[0];
-	*stack_one = ft_lstnew(number);
+	(*stack_one)->content = number;
 	i = 1;
 	while (i < argc - 1)
 	{
@@ -61,6 +62,7 @@ int	populate_stack_one(t_list **stack_one, int *stack_array, int argc, t_list **
 			free(number);
 			return (1);
 		}
+		new_node->next = NULL;
 		new_node->content = number;
 		ft_lstadd_back(stack_one, new_node);
 		i++;

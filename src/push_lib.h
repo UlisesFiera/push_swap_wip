@@ -21,5 +21,16 @@
 int		dup_int(int	*array, int argc);
 int		populate_stack_one(t_list **stack_one, int *stack_array, int argc, t_list **stack_two);
 void	free_list(t_list *stack);
+void	swap_a(t_list **stack_one);
+void	swap_b(t_list **stack_two);
+void	swap_both(t_list **stack_one, t_list **stack_two);
+void	push_b(t_list **stack_one, t_list **stack_two);
+void	push_a(t_list **stack_one, t_list **stack_two);
+void	rotate_a(t_list **stack_one);
+void	rotate_b(t_list **stack_two);
+void	rotate_both(t_list **stack_one, t_list **stack_two);
+void	reverse_rotate_a(t_list **stack_one);
+void	reverse_rotate_b(t_list **stack_two);
+void	reverse_rotate_both(t_list **stack_one, t_list **stack_two);
 
 #endif

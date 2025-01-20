@@ -112,14 +112,20 @@ int	char_to_int(char **argv, int **stack_array, int argc)
 
 void	print_stack(t_list *stack_one)
 {
+	static int i = 1;
+	int j;
 	t_list	*current;
 
+	j = 0;
 	current = stack_one;
 	while (current != NULL)
 	{
-		ft_printf("%d\n", *(int *)(current->content));
+		if ((current->content) != NULL)
+			ft_printf("stack[%i] digit[%i]: %d\n", i, j, *(int *)(current->content));
 		current = current->next;
+		j++;
 	}
+	i++;
 }
 
 int	main(int argc, char **argv)
@@ -145,20 +151,14 @@ int	main(int argc, char **argv)
 	}
 	if (populate_stack_one(&stack_one, stack_array, argc, &stack_two))
 	{
+		free_all(&stack_one, &stack_two, &stack_array);
 		ft_printf("Error\n");
 		return (1);
 	}
-	print_stack(stack_one);
 	free_all(&stack_one, &stack_two, &stack_array);
 	return (0);
 }
 
-/*    for (int i = 0; i < argc - 1; i++)
-	{
-        ft_printf("%d ", stack_array[i]);
-	}
-*/
-	
 /*
 
 	Pointer lesson:
@@ -180,5 +180,27 @@ int	main(int argc, char **argv)
 				- If we worked with stack, we'd be working with literally (0x9), which doesn't make sense.
 				- We wanna change what stack (0x9) points to, thats (uninitialized). And that is *stack.
 				- Now we are esentially saying "uninitialized = 0x1" (a valid memory address).
+
+	push_b(&stack_one, &stack_two);
+	push_b(&stack_one, &stack_two);
+	push_b(&stack_one, &stack_two);
+	push_b(&stack_one, &stack_two);
+	push_a(&stack_one, &stack_two);
+	rotate_a(&stack_one);
+	rotate_b(&stack_two);
+	rotate_both(&stack_one, &stack_two);
+	swap_a(&stack_one);
+	swap_b(&stack_two);
+	swap_both(&stack_one, &stack_two);
+	reverse_rotate_a(&stack_one);
+	reverse_rotate_b(&stack_one);
+	reverse_rotate_both(&stack_one, &stack_two);
+	print_stack(stack_one);
+	print_stack(stack_two);
+
+	for (int i = 0; i < argc - 1; i++)
+	{
+        ft_printf("%d ", stack_array[i]);
+	}
 
 */

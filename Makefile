@@ -9,7 +9,18 @@ STD_FLAGS				= -Wall -Wextra -Werror
 SRCS					= src/main.c \
 						  src/dup_int.c \
 						  src/populate_stack_one.c \
-						  src/free_list.c
+						  src/free_list.c \
+						  src/sa.c \
+						  src/sb.c \
+						  src/ss.c \
+						  src/pb.c \
+						  src/pa.c \
+						  src/ra.c \
+						  src/rb.c \
+						  src/rr.c \
+						  src/rra.c \
+						  src/rrb.c \
+						  src/rrr.c \
 
 OBJS					= ${SRCS:.c=.o}
 
