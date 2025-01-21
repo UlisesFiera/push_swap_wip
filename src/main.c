@@ -155,6 +155,9 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
+	talgo(&stack_one, &stack_two);
+	print_stack(stack_one);
+	print_stack(stack_two);
 	free_all(&stack_one, &stack_two, &stack_array);
 	return (0);
 }

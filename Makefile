@@ -21,6 +21,7 @@ SRCS					= src/main.c \
 						  src/rra.c \
 						  src/rrb.c \
 						  src/rrr.c \
+						  src/talgo.c \
 
 OBJS					= ${SRCS:.c=.o}
 
