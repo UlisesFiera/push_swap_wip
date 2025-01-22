@@ -12,7 +12,7 @@
 
 #include "push_lib.h"
 
-void	perform_operation(t_list **stack_one, t_list **stack_two, int winner, int targets, int size)
+void	perform_operation_a(t_list **stack_one, t_list **stack_two, int winner, int targets, int size)
 {
 	int	median;
 	int	i;
@@ -156,16 +156,16 @@ int		target_node_calculation(t_list **stack_two, t_list *cursor_one)
 	return (position);
 }
 
-int	stack_two_size(t_list **stack_two)
+int	stack_size(t_list **stack)
 {
 	t_list	*cursor;
 	int		size;
 	
-	if (!stack_two)
+	if (!stack)
 		return (-1);
 	size = 0;
-	cursor = *stack_two;
-	while (cursor->content != NULL)
+	cursor = *stack;
+	while (cursor != NULL && cursor->content != NULL)
 	{
 		size++;
 		cursor = cursor->next;
@@ -188,8 +188,7 @@ int	node_movement_cost(t_list **stack_two, int node, int size, int targets)
 	// if node and target are the same, the cost is the same as moving just one cause we can rrs and rs
 	if (node == targets)
 		return (cost);
-	size = stack_two_size(stack_two);
-	ft_printf("CALCULATING: size %i\n", size);
+	size = stack_size(stack_two);
 	// if the target is at the top-1 or bottom, cost will be the same + 1
 	if (targets == 1 || targets == size - 1)
 		return (cost + 1);
@@ -203,7 +202,7 @@ int	node_movement_cost(t_list **stack_two, int node, int size, int targets)
 	}
 }
 
-void	operation(t_list **stack_one, t_list **stack_two, int size, int *targets)
+void	operation_a(t_list **stack_one, t_list **stack_two, int size, int *targets)
 {
 	int	cheapest;
 	int	next_cost;
@@ -214,13 +213,11 @@ void	operation(t_list **stack_one, t_list **stack_two, int size, int *targets)
 			return (push_b(stack_one, stack_two));
 	node = 0;
 	cheapest = node_movement_cost(stack_two, node, size, targets[node]);
-	ft_printf("Node %i has cost %i\n", node, cheapest);
 	winner = node;
 	node++;
 	while (node < size)
 	{
 		next_cost = node_movement_cost(stack_two, node, size, targets[node]);
-		ft_printf("Node %i has cost %i\n", node, next_cost);
 		if (next_cost < cheapest)
 		{
 			cheapest = next_cost;
@@ -228,8 +225,7 @@ void	operation(t_list **stack_one, t_list **stack_two, int size, int *targets)
 		}
 		node++;
 	}
-	ft_printf("Winner is %i\n", winner);
-	perform_operation(stack_one, stack_two, winner, targets[winner], size);
+	perform_operation_a(stack_one, stack_two, winner, targets[winner], size);
 }
 
 void	push_cheap(t_list **stack_one, t_list **stack_two, int size)
@@ -245,13 +241,173 @@ void	push_cheap(t_list **stack_one, t_list **stack_two, int size)
 	{
 		// i will be the node and the value the target node's position in the b list
 		targets[i] = target_node_calculation(stack_two, cursor_one);
-		ft_printf("Node %i has target %i\n", i, targets[i]);
 		i++;
 		cursor_one = cursor_one->next;
 	}
-	operation(stack_one, stack_two, size, targets);
+	operation_a(stack_one, stack_two, size, targets);
 	free(targets);
 	return ;
+}
+
+void	sort_three(t_list **stack_one)
+{
+	t_list	*cursor;
+	int		max_value;
+	int		position;
+	int		i;
+
+	cursor = *stack_one;
+	max_value = *(int *)cursor->content;
+	i = 1;
+	position = 0;
+	cursor = cursor->next;
+	while (i < 3)
+	{
+		if (*(int *)cursor->content > max_value)
+		{
+			max_value = *(int *)cursor->content;
+			position = i;
+		}
+		cursor = cursor->next;
+		i++;
+	}
+	if (position == 0)
+		rotate_a(stack_one);
+	else if (position == 1)
+		reverse_rotate_a(stack_one);
+	cursor = *stack_one;
+	if (*(int *)cursor->content > *(int *)cursor->next->content)
+		swap_a(stack_one);
+}
+
+int	find_target_b(t_list **stack_one, int stack_two_value)
+{
+	t_list	*cursor;
+	int		target_node;
+	int		node_value;
+	int		i;
+
+	cursor = *stack_one;
+	target_node = -1;
+	i = 0;
+	while (cursor)
+	{
+		if (*(int *)cursor->content > stack_two_value)
+		{
+			node_value = *(int *)cursor->content;
+			target_node = i;
+		}
+		cursor = cursor->next;
+		i++;
+	}
+	if (target_node == -1)
+	{
+		cursor = *stack_one;
+		target_node = 0;
+		node_value = *(int *)cursor->content;
+		i = 0;
+		while (cursor)
+		{
+			if (*(int *)cursor->content < node_value)
+			{
+				node_value = *(int *)cursor->content;
+				target_node = i;
+			}
+			cursor = cursor->next;
+			i++;
+		}
+		return (target_node);
+	}
+	cursor = *stack_one;
+	i = 0;
+	while (cursor)
+	{
+		if (*(int *)cursor->content > stack_two_value && *(int *)cursor->content < node_value)
+		{
+			node_value = *(int *)cursor->content;
+			target_node = i;
+		}
+		cursor = cursor->next;
+		i++;
+	}
+	return (target_node);
+}
+
+void	operation_b(t_list **stack_one, t_list **stack_two, int target_node)
+{
+	int	median;
+	int	i;
+
+	if (target_node == 0)
+	{
+		push_a(stack_one, stack_two);
+		return ;
+	}
+	median = stack_size(stack_one) / 2;
+	i = 0;
+	if (target_node <= median)
+	{
+		while (i < target_node)
+		{
+			rotate_a(stack_one);
+			i++;
+		}
+		push_a(stack_one, stack_two);
+		return ;
+	}
+	else
+	{
+		while (i < stack_size(stack_one) - target_node)
+		{
+			reverse_rotate_a(stack_one);
+			i++;
+		}
+		push_a(stack_one, stack_two);
+		return ;
+	}
+}
+
+void    clean_null_nodes(t_list **head)
+{
+	t_list	*current;
+	t_list	*prev;
+	t_list	*to_free;
+
+	current = *head;
+	prev = NULL;
+	while (current)
+	{
+		if (!current->content)
+		{
+			to_free = current;
+            if (prev)
+				prev->next = current->next;
+			else
+				*head = current->next;
+			current = current->next;
+			free(to_free);
+		}
+		else
+		{
+			prev = current;
+			current = current->next;
+		}
+	}
+}
+
+void	push_back(t_list **stack_one, t_list **stack_two)
+{
+	t_list	*cursor;
+	int		target_node;
+
+	cursor = *stack_two;
+	while (cursor)
+	{
+		clean_null_nodes(stack_two);
+		target_node = find_target_b(stack_one, *(int *)(*stack_two)->content);
+		operation_b(stack_one, stack_two, target_node);
+		cursor = *stack_two;
+	}
 }
 
 void	talgo(t_list **stack_one, t_list **stack_two)
@@ -274,7 +430,8 @@ void	talgo(t_list **stack_one, t_list **stack_two)
 	while (size > 3)
 	{
 		push_cheap(stack_one, stack_two, size);
-		ft_printf("\nNEW OPERATION\n");
 		size--;
 	}
+	sort_three(stack_one);
+	push_back(stack_one, stack_two);
 }
