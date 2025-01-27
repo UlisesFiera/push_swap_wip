@@ -112,7 +112,7 @@ int	char_to_int(char **argv, int **stack_array, int argc)
 
 void	print_stack(t_list *stack_one)
 {
-	static int i = 1;
+	static int x = 1;
 	int j;
 	t_list	*current;
 
@@ -121,11 +121,11 @@ void	print_stack(t_list *stack_one)
 	while (current != NULL)
 	{
 		if ((current->content) != NULL)
-			ft_printf("stack[%i] digit[%i]: %d\n", i, j, *(int *)(current->content));
+			ft_printf("stack[%i] digit[%i]: %d\n", x, j, *(int *)(current->content));
 		current = current->next;
 		j++;
 	}
-	i++;
+	x++;
 }
 
 int	main(int argc, char **argv)
@@ -156,8 +156,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	talgo(&stack_one, &stack_two);
-	print_stack(stack_one);
-	print_stack(stack_two);
+	//print_stack(stack_one);
+	//print_stack(stack_two);
 	free_all(&stack_one, &stack_two, &stack_array);
 	return (0);
 }

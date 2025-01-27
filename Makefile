@@ -22,6 +22,7 @@ SRCS					= src/main.c \
 						  src/rrb.c \
 						  src/rrr.c \
 						  src/talgo.c \
+						  src/stack_size.c \
 
 OBJS					= ${SRCS:.c=.o}
 

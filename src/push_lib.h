@@ -33,5 +33,6 @@ void	reverse_rotate_a(t_list **stack_one);
 void	reverse_rotate_b(t_list **stack_two);
 void	reverse_rotate_both(t_list **stack_one, t_list **stack_two);
 void	talgo(t_list **stack_one, t_list **stack_two);
+int		stack_size(t_list **stack);
 
 #endif

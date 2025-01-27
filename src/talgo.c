@@ -17,8 +17,10 @@ void	perform_operation_a(t_list **stack_one, t_list **stack_two, int winner, int
 	int	median;
 	int	i;
 
+	//ft_printf("winner : %i\n", winner);
 	median = size / 2;
 	i = 0;
+	//ft_printf("target : %i\n", targets);
 	if (winner <= median)
 	{
 		while (i < winner)
@@ -46,7 +48,8 @@ void	perform_operation_a(t_list **stack_one, t_list **stack_two, int winner, int
 		push_b(stack_one, stack_two);
 		return ;
 	}
-	size = ft_lstsize(*stack_two);
+	size = stack_size(stack_two);
+	//ft_printf("test : %i\n", size);
 	if (targets == 1) 
 	{
 		rotate_b(stack_two);
@@ -80,97 +83,69 @@ void	perform_operation_a(t_list **stack_one, t_list **stack_two, int winner, int
 	push_b(stack_one, stack_two);
 }
 
-int		target_node_calculation(t_list **stack_two, t_list *cursor_one)
-{
-	int		stack_one_node_value;
-	int		stack_two_node_value;
-	int		value;
-	int		position;
-	int		i;
-	t_list	*cursor_two;
-
-	// we save the int of the node given from stack a
-	stack_one_node_value = *(int *)cursor_one->content;
-	// we initialise the value variable with that int
-	value = stack_one_node_value;
-	cursor_two = *stack_two;
-	position = 0;
-	i = 0;
-	while (cursor_two->content != NULL)
-	{
-		// we get the int of each node of the stack b
-		stack_two_node_value = *(int *)cursor_two->content;
-		// if it's smaller, we save that int into value to compare later, and the position of such node within the list
-		if (stack_two_node_value < stack_one_node_value)
-		{
-			value = stack_two_node_value;
-			position = i;
-		}
-		cursor_two = cursor_two->next;
-		i++;
-	}
-	// if the loop found anything smaller than the int of the stack a node...
-	cursor_two = *stack_two;
-	if (value < stack_one_node_value)
-	{
-		//ft_printf("Content %i\n", *(int *)cursor_two->content);
-		//ft_printf("Value %i\n", value);
-		//ft_printf("Value %i\n", stack_one_node_value);
-		i = 0;
-		while (cursor_two->content != NULL)
-		{
-			stack_two_node_value = *(int *)cursor_two->content;
-			// we look again for a value smaller, but at the same time bigger than the last smaller found
-			if (stack_two_node_value < stack_one_node_value && stack_two_node_value > value)
-			{
-				value = stack_two_node_value;
-				position = i;
-			}
-			cursor_two = cursor_two->next;
-			i++;
-			// all this is because we need to initialize value to something and it has to be something 
-			// smaller than the stack a int, and we dont know what that int is
-		}
-		//ft_printf("Position %i\n", position);
-		return (position);
-	}
-	
-	// if there is nothing smaller, we just look for the bigest;
-	else
-	{
-		cursor_two = *stack_two;
-		position = 0;
-		i = 0;
-		while (cursor_two->content != NULL)
-		{
-			stack_two_node_value = *(int *)cursor_two->content;
-			if (stack_two_node_value > value)
-			{
-				value = stack_two_node_value;
-				position = i;
-			}
-			cursor_two = cursor_two->next;
-			i++;
-		}
-	}
-	return (position);
-}
-
-int	stack_size(t_list **stack)
+int	find_target_a(t_list **stack_two, int stack_one_value)
 {
 	t_list	*cursor;
-	int		size;
-	
-	if (!stack)
-		return (-1);
-	size = 0;
-	cursor = *stack;
-	while (cursor != NULL && cursor->content != NULL)
+	int		target_node;
+	int		node_value;
+	int		i;
+	int		j;
+
+	cursor = *stack_two;
+	target_node = -1;
+	i = 0;
+	while (cursor)
 	{
-		size++;
+		if (cursor->content)
+		{
+			if (*(int *)cursor->content < stack_one_value)
+			{
+				node_value = *(int *)cursor->content;
+				target_node = i;
+			}
+			i++;
+		}
 		cursor = cursor->next;
 	}
-	return (size);
+	if (target_node == -1)
+	{
+		cursor = *stack_two;
+		target_node = 0;
+		node_value = *(int *)cursor->content;
+		i = 0;
+		while (cursor)
+		{
+			if (cursor->content)
+			{
+				if (*(int *)cursor->content > node_value)
+				{
+					node_value = *(int *)cursor->content;
+					target_node = i;
+				}
+				i++;
+			}
+			cursor = cursor->next;
+		}
+		return (target_node);
+	}
+	cursor = *stack_two;
+	j = 0;
+	while (cursor)
+	{
+		if (cursor->content)
+		{
+			//ft_printf("cursor content: %i\n", *(int *)cursor->content);
+			//ft_printf("stack_one value: %i node_value: %i next node_value: %i\n", stack_one_value, node_value, *(int *)cursor->content);
+			if ((*(int *)cursor->content < stack_one_value) && (*(int *)cursor->content > node_value))
+			{
+				node_value = *(int *)cursor->content;
+				target_node = j;
+			}
+			j++;
+		}
+		cursor = cursor->next;
+	}
+	return (target_node);
 }
 
 int	node_movement_cost(t_list **stack_two, int node, int size, int targets)
@@ -180,20 +155,19 @@ int	node_movement_cost(t_list **stack_two, int node, int size, int targets)
 
 	median = size / 2;
 	cost = 0;
-	// we calculate the number of ra or rra based on the position to the median
+
 	if (node <= median)
 		cost += node;
 	else
 		cost += size - node;
-	// if node and target are the same, the cost is the same as moving just one cause we can rrs and rs
 	if (node == targets)
 		return (cost);
 	size = stack_size(stack_two);
-	// if the target is at the top-1 or bottom, cost will be the same + 1
 	if (targets == 1 || targets == size - 1)
 		return (cost + 1);
 	else
 	{
+		//ft_printf("cost of node %i target %i is %i\n", node, targets, cost);
 		median = size / 2;
 		if (targets <= median)
 			return (cost += targets);
@@ -202,50 +176,55 @@ int	node_movement_cost(t_list **stack_two, int node, int size, int targets)
 	}
 }
 
-void	operation_a(t_list **stack_one, t_list **stack_two, int size, int *targets)
+void	operation_a(t_list **stack_one, t_list **stack_two, int size, int *target)
 {
 	int	cheapest;
 	int	next_cost;
 	int	node;
 	int	winner;
 
-	if (targets[0] == 0)
+	if (target[0] == 0)
 			return (push_b(stack_one, stack_two));
 	node = 0;
-	cheapest = node_movement_cost(stack_two, node, size, targets[node]);
-	winner = node;
+	cheapest = node_movement_cost(stack_two, node, size, target[0]);
+	//ft_printf("Node position %i cost %i\n", node, cheapest);
+	winner = 0;
 	node++;
 	while (node < size)
 	{
-		next_cost = node_movement_cost(stack_two, node, size, targets[node]);
+		next_cost = node_movement_cost(stack_two, node, size, target[node]);
 		if (next_cost < cheapest)
 		{
 			cheapest = next_cost;
 			winner = node;
+			//ft_printf("new node position %i cost %i", node, cheapest);
 		}
 		node++;
 	}
-	perform_operation_a(stack_one, stack_two, winner, targets[winner], size);
+	//ft_printf("target : %i\n", target[winner]);
+	perform_operation_a(stack_one, stack_two, winner, target[winner], size);
 }
 
 void	push_cheap(t_list **stack_one, t_list **stack_two, int size)
 {
-	t_list	*cursor_one;
-	int		*targets;
+	t_list	*cursor;
+	int		target_node;
+	int		*positions;
 	int		i;
 
-	cursor_one = *stack_one;
-	targets = malloc(sizeof(int) * size);
+	positions = malloc(sizeof(int) * size);
+	cursor = *stack_one;
 	i = 0;
-	while (cursor_one != NULL)
+	while (cursor && cursor->content)
 	{
-		// i will be the node and the value the target node's position in the b list
-		targets[i] = target_node_calculation(stack_two, cursor_one);
+		target_node = find_target_a(stack_two, *(int *)cursor->content);
+		//ft_printf("Node %i has target target %i\n", *(int *)cursor->content, target_node);
+		cursor = cursor->next;
+		positions[i] = target_node;
 		i++;
-		cursor_one = cursor_one->next;
 	}
-	operation_a(stack_one, stack_two, size, targets);
-	free(targets);
+	operation_a(stack_one, stack_two, size, positions);
+	free(positions);
 	return ;
 }
 
@@ -292,13 +271,16 @@ int	find_target_b(t_list **stack_one, int stack_two_value)
 	i = 0;
 	while (cursor)
 	{
-		if (*(int *)cursor->content > stack_two_value)
+		if (cursor->content)
 		{
-			node_value = *(int *)cursor->content;
-			target_node = i;
+			if (*(int *)cursor->content > stack_two_value)
+			{
+				node_value = *(int *)cursor->content;
+				target_node = i;
+			}
+			i++;
 		}
 		cursor = cursor->next;
-		i++;
 	}
 	if (target_node == -1)
 	{
@@ -308,13 +290,18 @@ int	find_target_b(t_list **stack_one, int stack_two_value)
 		i = 0;
 		while (cursor)
 		{
-			if (*(int *)cursor->content < node_value)
+			//ft_printf("target node %i\n", target_node);
+			//ft_printf("node %i\n", *(int *)cursor->content);
+			if (cursor->content)
 			{
-				node_value = *(int *)cursor->content;
-				target_node = i;
+				if (*(int *)cursor->content < node_value)
+				{
+					node_value = *(int *)cursor->content;
+					target_node = i;
+				}
+				i++;
 			}
 			cursor = cursor->next;
-			i++;
 		}
 		return (target_node);
 	}
@@ -322,13 +309,16 @@ int	find_target_b(t_list **stack_one, int stack_two_value)
 	i = 0;
 	while (cursor)
 	{
-		if (*(int *)cursor->content > stack_two_value && *(int *)cursor->content < node_value)
+		if (cursor->content)
 		{
-			node_value = *(int *)cursor->content;
-			target_node = i;
+			if (*(int *)cursor->content > stack_two_value && *(int *)cursor->content < node_value)
+			{
+				node_value = *(int *)cursor->content;
+				target_node = i;
+			}
+			i++;
 		}
 		cursor = cursor->next;
-		i++;
 	}
 	return (target_node);
 }
@@ -401,12 +391,38 @@ void	push_back(t_list **stack_one, t_list **stack_two)
 	int		target_node;
 
 	cursor = *stack_two;
-	while (cursor)
+	while (cursor && cursor->content)
 	{
-		clean_null_nodes(stack_two);
-		target_node = find_target_b(stack_one, *(int *)(*stack_two)->content);
+		target_node = find_target_b(stack_one, *(int *)cursor->content);
+		//ft_printf("Node %i has target target %i\n", *(int *)cursor->content, target_node);
 		operation_b(stack_one, stack_two, target_node);
 		cursor = *stack_two;
+	}
+}
+
+void	check_tail(t_list **stack_one)
+{
+	t_list	*cursor;
+	t_list	*last;
+
+	cursor = *stack_one;
+	while (cursor)
+	{
+		if (cursor->content)
+			last = cursor;
+		cursor = cursor->next;
+	}
+	//ft_printf("hey %i\n", *(int *)cursor->content);
+	while (*(int *)(*stack_one)->content > *(int *)last->content)
+	{
+		reverse_rotate_a(stack_one);
+		cursor = *stack_one;
+		while (cursor)
+		{
+			if (cursor->content)
+				last = cursor;
+			cursor = cursor->next;
+		}
 	}
 }
 
@@ -434,4 +450,5 @@ void	talgo(t_list **stack_one, t_list **stack_two)
 	}
 	sort_three(stack_one);
 	push_back(stack_one, stack_two);
+	check_tail(stack_one);
 }
