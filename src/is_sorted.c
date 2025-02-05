@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sb.c                                               :+:      :+:    :+:   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 19:54:06 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/19 19:54:06 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/02/04 17:41:56 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/02/04 17:41:56 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-void	swap_b(t_list **stack_two)
+int	is_sorted(t_stack *stack)
 {
-	t_list 	*cursor;
-	int		*tmp;
-
-	if (*stack_two == NULL || (*stack_two)->next == NULL)
-		return ;
-	ft_printf("sb\n");
-	cursor = *stack_two;
-	cursor = (*stack_two)->next;
-	tmp = (*stack_two)->content;
-	(*stack_two)->content = cursor->content;
-	cursor->content = tmp;
+	if (!stack)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->number > stack->next->number)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }

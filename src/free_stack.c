@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_size.c                                       :+:      :+:    :+:   */
+/*   free_push.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/24 10:21:45 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/24 10:21:45 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/02/03 15:53:23 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/02/03 15:53:23 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-int	stack_size(t_list **stack)
+void	free_stack(t_stack **stack)
 {
-	t_list	*cursor;
-	int		size;
-	
+	t_stack		*tmp;
+	t_stack		*cursor;
+
 	if (!stack)
-		return (-1);
-	size = 0;
+		return ;
 	cursor = *stack;
 	while (cursor)
 	{
-		if (cursor->content)
-			size++;
-		cursor = cursor->next;
+		tmp = cursor->next;
+		free(cursor);
+		cursor = tmp;
 	}
-	return (size);
+	*stack = NULL;
 }

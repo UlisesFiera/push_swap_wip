@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_list.c                                        :+:      :+:    :+:   */
+/*   sort_three.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 17:18:59 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/18 17:19:06 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/02/03 16:42:00 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/02/03 16:42:00 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-void	free_list(t_list *stack)
+void	sort_three(t_stack **stack)
 {
-    t_list	*current;
-    t_list	*next;
+	t_stack	*biggest_node;
 
-    current = stack;
-    while (current != NULL)
-    {
-        next = current->next;
-        free(current->content);
-        free(current);
-        current = next;
-    }
+	biggest_node = find_biggest_node(*stack);
+	if (*stack == biggest_node)
+		rotate(stack, "ra");
+	else if ((*stack)->next == biggest_node)
+		reverse_rotate(stack, "rra");
+	if ((*stack)->number > (*stack)->next->number)
+		swap(stack, "sa");
 }

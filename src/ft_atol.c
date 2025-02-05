@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_int.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 17:01:47 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/17 17:02:24 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/02/02 16:59:45 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/02/02 16:59:45 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-int	dup_int(int	*array, int argc)
+long	ft_atol(const char *string)
 {
-	int	num;
-	int	dup;
-	int	i;
-	int	j;
+	long	number;
+	int		sign;
 
-	i = 0;
-	dup = 0;
-	while (i < argc - 1)
+	number = 0;
+	sign = 1;
+
+	while (*string == ' ' || *string == '\t' || *string == '\n' || 
+			*string == '\r' || *string == '\f' || *string == 'v')
+		string++;
+	if (*string == '-' || *string == '+')
 	{
-		num = array[i];
-		j = 0;
-		while (j < argc - 1)
-		{
-			if (array[j] == num)
-				dup++;
-			j++;
-		}
-		if (dup >= 2)
-			return (1);	
-		dup = 0;
-		i++;
+		if (*string == '-')
+			sign = -1;
+		string++;
 	}
-	return (0);
+	while (ft_isdigit(*string))
+		number = number * 10 + (*string++ - '0');
+	return (number * sign);
 }

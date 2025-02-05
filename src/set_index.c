@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sa.c                                               :+:      :+:    :+:   */
+/*   set_index.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 17:44:29 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/19 17:44:29 by ulfernan         ###   ########.fr       */
+/*   Created: 2025/02/04 17:50:43 by ulfernan          #+#    #+#             */
+/*   Updated: 2025/02/04 17:50:43 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
 
-void	swap_a(t_list **stack_one)
+void	set_index(t_stack *stack)
 {
-	t_list 	*cursor;
-	int		*tmp;
+	int	i;
+	int	median;
 
-	if (*stack_one == NULL || (*stack_one)->next == NULL)
+	i = 0;
+	if (!stack)
 		return ;
-	ft_printf("sa\n");
-	cursor = *stack_one;
-	cursor = (*stack_one)->next;
-	tmp = (*stack_one)->content;
-	(*stack_one)->content = cursor->content;
-	cursor->content = tmp;
+	median = stack_size(stack) / 2;
+	while (stack)
+	{
+		stack->index = i;
+		if (i <= median)
+			stack->above_median = 1;
+		else
+			stack->above_median = 0;
+		stack = stack->next;
+		i++;
+	}
 }

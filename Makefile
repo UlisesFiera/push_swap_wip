@@ -7,22 +7,22 @@ CC						= gcc
 STD_FLAGS				= -Wall -Wextra -Werror
 
 SRCS					= src/main.c \
-						  src/dup_int.c \
-						  src/populate_stack_one.c \
-						  src/free_list.c \
-						  src/sa.c \
-						  src/sb.c \
-						  src/ss.c \
-						  src/pb.c \
-						  src/pa.c \
-						  src/ra.c \
-						  src/rb.c \
-						  src/rr.c \
-						  src/rra.c \
-						  src/rrb.c \
-						  src/rrr.c \
+						  src/append_node.c \
+						  src/error_check.c \
+						  src/free_stack.c \
+						  src/ft_atol.c \
+						  src/populate_a.c \
+						  src/is_sorted.c \
+						  src/set_index.c \
+						  src/sort_three.c \
+						  src/stack_a_setup.c \
+						  src/stack_b_setup.c \
+						  src/stack_utils.c \
 						  src/talgo.c \
-						  src/stack_size.c \
+						  src/operations/push.c \
+						  src/operations/reverse_rotate.c \
+						  src/operations/rotate.c \
+						  src/operations/swap.c \
 
 OBJS					= ${SRCS:.c=.o}
 
