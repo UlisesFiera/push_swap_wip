@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:28:02 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/02 17:28:02 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:21:53 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	append_node(t_stack **stack, int number)
 	last_node = find_last_node(*stack);
 	last_node->next = new_node;
 	new_node->prev = last_node;
+	new_node->cheapest = 0;
 	return (0);
 }
 

@@ -6,11 +6,18 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:56:25 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/02 16:56:25 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:16:35 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_lib.h"
+
+void	print_error(t_stack **a)
+{
+	ft_printf("Error\n");
+	free_stack(a);
+	exit (1);
+}
 
 void	populate_a(t_stack **a, char **argv)
 {
@@ -21,26 +28,14 @@ void	populate_a(t_stack **a, char **argv)
 	while (argv[i])
 	{
 		if (check_syntax(argv[i]))
-		{
-			ft_printf("Error\n");
-			free_stack(a);
-		}
+			print_error(a);
 		number = ft_atol(argv[i]);
 		if (number > 2147483647 || number < -2147483648)
-		{
-			ft_printf("Error\n");
-			free_stack(a);
-		}
+			print_error(a);
 		if (check_duplicate(*a, (int)number))
-		{
-			ft_printf("Error\n");
-			free_stack(a);
-		}
+			print_error(a);
 		if (append_node(a, (int)number))
-		{
-			ft_printf("Error\n");
-			free_stack(a);
-		}
+			print_error(a);
 		i++;
 	}
 }

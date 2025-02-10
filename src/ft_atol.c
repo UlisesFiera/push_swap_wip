@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:59:45 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/02 16:59:45 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:44:20 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ long	ft_atol(const char *string)
 
 	number = 0;
 	sign = 1;
-
-	while (*string == ' ' || *string == '\t' || *string == '\n' || 
-			*string == '\r' || *string == '\f' || *string == 'v')
+	while (*string == ' ' || *string == '\t' || *string == '\n'
+		|| *string == '\r' || *string == '\f' || *string == 'v')
 		string++;
 	if (*string == '-' || *string == '+')
 	{

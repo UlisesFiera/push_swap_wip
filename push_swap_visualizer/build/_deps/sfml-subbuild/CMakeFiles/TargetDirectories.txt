@@ -1,0 +1,3 @@
+/home/ulfernan/Documents/wip/push_swap_wip/push_swap_visualizer/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
+/home/ulfernan/Documents/wip/push_swap_wip/push_swap_visualizer/build/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
+/home/ulfernan/Documents/wip/push_swap_wip/push_swap_visualizer/build/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir

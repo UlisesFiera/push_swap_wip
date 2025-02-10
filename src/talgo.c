@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:08:17 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/04 10:08:17 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:00:34 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	move_node_top(t_stack **stack, t_stack *node_to_top, char stack_name)
 		{
 			if (node_to_top->above_median)
 				rotate(stack, "ra");
-			else 
+			else
 				reverse_rotate(stack, "rra");
 		}
 		else if (stack_name == 'b')

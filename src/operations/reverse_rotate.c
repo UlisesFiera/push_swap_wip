@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 09:49:05 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/04 09:49:05 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:21:15 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	reverse_rotate(t_stack **stack, char *operation)
 	last_node->prev->next = NULL;
 	last_node->prev = NULL;
 	*stack = last_node;
+	last_node->next->prev = last_node;
 	if (!ft_strncmp(operation, "rra", 3))
 		ft_printf("rra\n");
 	if (!ft_strncmp(operation, "rrb", 3))
