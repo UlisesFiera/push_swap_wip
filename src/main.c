@@ -30,10 +30,10 @@ void	load_num(int argc, char **argv, t_stack **a)
 	{
 		argv = ft_split(argv[1], ' ');
 		populate_a(a, argv);
+		free_split(argv);
 	}
 	else
 		populate_a(a, argv + 1);
-	free_split(argv);
 }
 
 int	main(int argc, char **argv)

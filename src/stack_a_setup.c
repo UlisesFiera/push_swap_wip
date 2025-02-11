@@ -55,7 +55,7 @@ void push_cost(t_stack *a, t_stack *b)
 		if (a->target->above_median)
 			a->cost += a->target->index;
 		else
-			a->cost += size_b + (a->target->index);
+			a->cost += size_b - (a->target->index);
 		a = a->next;
 	}
 

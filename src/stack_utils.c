@@ -43,16 +43,16 @@ int	stack_size(t_stack *stack)
 	size = 0;
 	while (stack)
 	{
-		size++;
 		stack = stack->next;
+		size++;
 	}
 	return (size);
 }
 
 t_stack	*find_biggest_node(t_stack *stack)
 {
-	int		biggest_number;
-	t_stack	*biggest_node;
+	long		biggest_number;
+	t_stack		*biggest_node;
 	
 	biggest_number = -2147483648;
 	while (stack)
@@ -69,8 +69,8 @@ t_stack	*find_biggest_node(t_stack *stack)
 
 t_stack	*find_smallest_node(t_stack *stack)
 {
-	int		smallest_number;
-	t_stack	*smallest_node;
+	long		smallest_number;
+	t_stack		*smallest_node;
 	
 	smallest_number = 2147483647;
 	while (stack)

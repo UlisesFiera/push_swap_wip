@@ -30,10 +30,13 @@ int	append_node(t_stack **stack, int number)
 		new_node->prev = NULL;
 		return (0);
 	}
-	last_node = find_last_node(*stack);
-	last_node->next = new_node;
-	new_node->prev = last_node;
-	new_node->cheapest = 0;
+	else
+	{
+		last_node = find_last_node(*stack);
+		last_node->next = new_node;
+		new_node->prev = last_node;
+		new_node->cheapest = 0;
+	}
 	return (0);
 }
 
