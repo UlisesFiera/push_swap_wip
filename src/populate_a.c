@@ -12,14 +12,7 @@
 
 #include "push_lib.h"
 
-void	print_error(t_stack **a)
-{
-	ft_printf("Error\n");
-	free_stack(a);
-	exit (1);
-}
-
-void	populate_a(t_stack **a, char **argv)
+int	populate_a(t_stack **a, char **argv)
 {
 	long	number;
 	int		i;
@@ -28,17 +21,17 @@ void	populate_a(t_stack **a, char **argv)
 	while (argv[i])
 	{
 		if (check_syntax(argv[i]))
-			print_error(a);
+			return (1);
 		number = ft_atol(argv[i]);
 		if (number > 2147483647 || number < -2147483648)
-			print_error(a);
+			return (1);
 		if (check_duplicate(*a, (int)number))
-			print_error(a);
+			return (1);
 		if (append_node(a, (int)number))
-			print_error(a);
+			return (1);
 		i++;
 	}
+	return (0);
 }
-
 
 // We turn to long so we can check for overflows

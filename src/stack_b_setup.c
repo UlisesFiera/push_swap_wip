@@ -12,7 +12,7 @@
 
 #include "push_lib.h"
 
-void set_target_b(t_stack *a, t_stack *b)
+void	set_target_b(t_stack *a, t_stack *b)
 {
 	t_stack	*cursor_a;
 	t_stack	*target_node;
@@ -24,7 +24,7 @@ void set_target_b(t_stack *a, t_stack *b)
 		cursor_a = a;
 		while (cursor_a)
 		{
-			if (cursor_a->number > b->number 
+			if (cursor_a->number > b->number
 				&& cursor_a->number < big_closer_value)
 			{
 				big_closer_value = cursor_a->number;

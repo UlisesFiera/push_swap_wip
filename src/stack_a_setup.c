@@ -12,7 +12,7 @@
 
 #include "push_lib.h"
 
-void set_target_a(t_stack *a, t_stack *b)
+void	set_target_a(t_stack *a, t_stack *b)
 {
 	t_stack	*cursor_b;
 	t_stack	*target_node;
@@ -24,7 +24,7 @@ void set_target_a(t_stack *a, t_stack *b)
 		cursor_b = b;
 		while (cursor_b)
 		{
-			if (cursor_b->number < a->number 
+			if (cursor_b->number < a->number
 				&& cursor_b->number > small_closer_value)
 			{
 				small_closer_value = cursor_b->number;
@@ -40,7 +40,7 @@ void set_target_a(t_stack *a, t_stack *b)
 	}
 }
 
-void push_cost(t_stack *a, t_stack *b)
+void	push_cost(t_stack *a, t_stack *b)
 {
 	int	size_a;
 	int	size_b;
@@ -58,7 +58,6 @@ void push_cost(t_stack *a, t_stack *b)
 			a->cost += size_b - (a->target->index);
 		a = a->next;
 	}
-
 }
 
 void	set_cheapest(t_stack *stack)

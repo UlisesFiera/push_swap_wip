@@ -41,7 +41,7 @@ void	move_node_top(t_stack **stack, t_stack *node_to_top, char stack_name)
 		{
 			if (node_to_top->above_median)
 				rotate(stack, "rb");
-			else 
+			else
 				reverse_rotate(stack, "rrb");
 		}
 	}
@@ -60,7 +60,8 @@ void	push_a_to_b(t_stack **a, t_stack **b)
 	cheapest_node = find_cheapest(*a);
 	if (cheapest_node->above_median && cheapest_node->target->above_median)
 		rotate_operation(a, b, cheapest_node);
-	else if (!(cheapest_node->above_median) && !(cheapest_node->target->above_median))
+	else if (!(cheapest_node->above_median)
+		&& !(cheapest_node->target->above_median))
 		reverse_rotate_operation(a, b, cheapest_node);
 	move_node_top(a, cheapest_node, 'a');
 	move_node_top(b, cheapest_node->target, 'b');
@@ -91,6 +92,8 @@ void	sort_stacks(t_stack **a, t_stack **b)
 	top_min(a);
 }
 
-// We need at least 2 nodes in b to perform the turkish algo, hence the initial ifs
-// But if after pushing 1 or 2 nodes we end up with 3 nodes in a, we just sort
-// them with sort_three cause the sorting of b is unnecesary.
+// We need at least 2 nodes in b to perform the turkish algo, 
+// hence the initial ifs.
+// But if after pushing 1 or 2 nodes we end up with 3 nodes 
+// in a, we just sort them with sort_three cause the 
+// sorting of b is unnecesary.

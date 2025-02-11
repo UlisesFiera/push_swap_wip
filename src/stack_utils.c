@@ -12,15 +12,15 @@
 
 #include "push_lib.h"
 
-t_stack *find_cheapest(t_stack *stack)
+t_stack	*find_cheapest(t_stack *stack)
 {
 	if (!stack)
-		return NULL;
+		return (NULL);
 	while (stack)
 	{
 		if (stack->cheapest)
 			return (stack);
-		stack = stack->next;	
+		stack = stack->next;
 	}
 	return (NULL);
 }
@@ -53,7 +53,7 @@ t_stack	*find_biggest_node(t_stack *stack)
 {
 	long		biggest_number;
 	t_stack		*biggest_node;
-	
+
 	biggest_number = -2147483648;
 	while (stack)
 	{
@@ -71,7 +71,7 @@ t_stack	*find_smallest_node(t_stack *stack)
 {
 	long		smallest_number;
 	t_stack		*smallest_node;
-	
+
 	smallest_number = 2147483647;
 	while (stack)
 	{

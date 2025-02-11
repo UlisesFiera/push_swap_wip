@@ -21,7 +21,7 @@ void	rotate(t_stack **stack, char *operation)
 	last_node = find_last_node(*stack);
 	*stack = (*stack)->next;
 	last_node->next = (*stack)->prev;
-	(*stack)->prev->next = NULL; 
+	(*stack)->prev->next = NULL;
 	(*stack)->prev->prev = last_node;
 	(*stack)->prev = NULL;
 	if (!ft_strncmp(operation, "ra", 2))

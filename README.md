@@ -8,4 +8,7 @@ git config --global alias.upload 'git add . && git commit -m "v0.2wip" && git pu
 valgrind --leak-check=full --show-leak-kinds=all -s ./push_swap
 
 try!
-./push_swap 99 0 25 -38 10 7 42
+ARG=$(seq 0 100 | sort -R | tr '\n' ' ') && ./push_swap $ARG | wc -l
+
+checker
+ARG="4 10 1 3 2"; ./push_swap $ARG | ./checker_Mac $ARG

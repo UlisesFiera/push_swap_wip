@@ -12,6 +12,13 @@
 
 #include "push_lib.h"
 
+void	print_error(t_stack **a)
+{
+	ft_printf("Error\n");
+	free_stack(a);
+	exit (1);
+}
+
 void	free_split(char **argv)
 {
 	int	i;
@@ -29,11 +36,16 @@ void	load_num(int argc, char **argv, t_stack **a)
 	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
-		populate_a(a, argv);
+		if (populate_a(a, argv))
+		{
+			free_split(argv);
+			print_error(a);
+		}
 		free_split(argv);
 	}
 	else
-		populate_a(a, argv + 1);
+		if (populate_a(a, argv + 1))
+			print_error(a);
 }
 
 int	main(int argc, char **argv)

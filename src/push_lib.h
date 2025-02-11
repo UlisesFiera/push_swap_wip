@@ -18,22 +18,22 @@
 
 # include "libft/libft.h"
 
-typedef	struct s_stack
+typedef struct s_stack
 {
-	int		number;
-	int		index;
-	int		cost;
-	int		above_median;
-	int		cheapest;
-	struct 	s_stack	*target;
-	struct	s_stack *next;
-	struct	s_stack	*prev;
+	int				number;
+	int				index;
+	int				cost;
+	int				above_median;
+	int				cheapest;
+	struct s_stack	*target;
+	struct s_stack	*next;
+	struct s_stack	*prev;
 }	t_stack;
 
 long	ft_atol(const char *string);
-void	populate_a(t_stack **a, char **argv);
+int		populate_a(t_stack **a, char **argv);
 int		is_sorted(t_stack *stack);
-t_stack *find_cheapest(t_stack *stack);
+t_stack	*find_cheapest(t_stack *stack);
 t_stack	*find_last_node(t_stack *stack);
 int		stack_size(t_stack *stack);
 t_stack	*find_biggest_node(t_stack *stack);
@@ -41,7 +41,8 @@ t_stack	*find_smallest_node(t_stack *stack);
 void	push(t_stack **src, t_stack **dst, char *operation);
 void	reverse_rotate(t_stack **stack, char *operation);
 void	reverse_rotate_both(t_stack **a, t_stack **b);
-void	reverse_rotate_operation(t_stack **a, t_stack **b, t_stack *cheapest_node);
+void	reverse_rotate_operation(t_stack **a, t_stack **b,
+			t_stack *cheapest_node);
 void	rotate(t_stack **stack, char *operation);
 void	rotate_both(t_stack **a, t_stack **b);
 void	rotate_operation(t_stack **a, t_stack **b, t_stack *cheapest_node);

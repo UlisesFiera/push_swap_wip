@@ -38,7 +38,8 @@ void	reverse_rotate_both(t_stack **a, t_stack **b)
 	ft_printf("rrs\n");
 }
 
-void	reverse_rotate_operation(t_stack **a, t_stack **b, t_stack *cheapest_node)
+void	reverse_rotate_operation(t_stack **a,
+		t_stack **b, t_stack *cheapest_node)
 {
 	while (*b != cheapest_node->target && *a != cheapest_node)
 		reverse_rotate_both(a, b);
