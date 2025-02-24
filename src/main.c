@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:15 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/10 21:38:05 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:40:28 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_split(char **argv)
 
 void	load_num(int argc, char **argv, t_stack **a)
 {
-	if (argc == 1 || !argv[1][0])
+	if (argc == 1 || !argv[1])
 		exit (1);
 	if (argc == 2)
 	{

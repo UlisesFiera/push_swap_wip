@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:10:20 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/01/18 17:19:19 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:30:33 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # include "libft/libft.h"
 

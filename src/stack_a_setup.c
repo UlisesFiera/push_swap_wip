@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_setup.c                                      :+:      :+:    :+:   */
+/*   stack_a_setup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:52:57 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/04 10:52:57 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:48:38 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_target_a(t_stack *a, t_stack *b)
 
 	while (a)
 	{
-		small_closer_value = -2147483648;
+		small_closer_value = -2147483649;
 		cursor_b = b;
 		while (cursor_b)
 		{
@@ -32,7 +32,7 @@ void	set_target_a(t_stack *a, t_stack *b)
 			}
 			cursor_b = cursor_b->next;
 		}
-		if (small_closer_value == -2147483648)
+		if (small_closer_value == -2147483649)
 			a->target = find_biggest_node(b);
 		else
 			a->target = target_node;
@@ -67,7 +67,7 @@ void	set_cheapest(t_stack *stack)
 
 	if (!stack)
 		return ;
-	cheapest_value = 2147483647;
+	cheapest_value = 2147483649;
 	while (stack)
 	{
 		if (stack->cost < cheapest_value)

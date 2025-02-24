@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:36:24 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/10 19:30:59 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:48:42 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_target_b(t_stack *a, t_stack *b)
 
 	while (b)
 	{
-		big_closer_value = 2147483647;
+		big_closer_value = 2147483648;
 		cursor_a = a;
 		while (cursor_a)
 		{
@@ -32,7 +32,7 @@ void	set_target_b(t_stack *a, t_stack *b)
 			}
 			cursor_a = cursor_a->next;
 		}
-		if (big_closer_value == 2147483647)
+		if (big_closer_value == 2147483648)
 			b->target = find_smallest_node(a);
 		else
 			b->target = target_node;
