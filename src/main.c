@@ -6,7 +6,7 @@
 /*   By: ulfernan <ulfernan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:15 by ulfernan          #+#    #+#             */
-/*   Updated: 2025/02/24 12:40:28 by ulfernan         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:44:04 by ulfernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(t_stack **a)
 {
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	free_stack(a);
 	exit (1);
 }
